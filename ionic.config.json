@@ -1,0 +1,7 @@
+{
+  "name": "qrder-waiter",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
