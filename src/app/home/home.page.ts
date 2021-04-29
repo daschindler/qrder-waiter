@@ -18,15 +18,15 @@ export class HomePage {
     ];
 
     orders: Order[] = [
-        {id: 1, items: this.items},
-        {id: 2, items: this.items},
-        {id: 3, items: this.items},
-        {id: 4, items: this.items},
-        {id: 5, items: this.items},
-        {id: 6, items: this.items},
-        {id: 7, items: this.items},
-        {id: 8, items: this.items},
-        {id: 9, items: this.items}
+        new Order(1, this.items),
+        new Order(2, this.items),
+        new Order(3, this.items),
+        new Order(4, this.items),
+        new Order(5, this.items),
+        new Order(6, this.items),
+        new Order(7, this.items),
+        new Order(8, this.items),
+        new Order(9, this.items)
     ];
 
     constructor(private qrScanner: QRScanner, private router: Router) {
