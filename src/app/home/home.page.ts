@@ -8,29 +8,11 @@ import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner/ngx';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    private qrScan: any;
 
     constructor(private qrScanner: QRScanner) {
     }
 
-    timeLeft: number = 5;
-    interval;
-
-    startTimer() {
-        const ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
-        ionApp.style.display = "none";
-        this.interval = setInterval(() => {
-            if(this.timeLeft > 0) {
-                this.timeLeft--;
-            } else {
-                ionApp.style.display = "block";
-                this.timeLeft = 5;
-            }
-        },1000)
-    }
-
     onScanClick() {
-        //this.startTimer();
         this.qrScanner.prepare()
             .then((status: QRScannerStatus) => {
                 if (status.authorized) {
@@ -52,16 +34,11 @@ export class HomePage {
                     // camera permission was permanently denied
                     // you must use QRScanner.openSettings() method to guide the user to the settings page
                     // then they can grant the permission from there
+                    this.qrScanner.openSettings();
                 } else {
                     // permission was denied, but not permanently. You can ask for permission again at a later time.
                 }
             })
             .catch((e: any) => console.log('Error is', e));
-    }
-
-    stopScanning() {
-        (window.document.querySelector('ion-app') as HTMLElement).classList.remove('cameraView');
-        this.qrScanner.hide();
-        this.qrScanner.destroy();
     }
 }
