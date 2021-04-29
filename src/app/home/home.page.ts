@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner/ngx';
+import {Router} from "@angular/router";
+import {MenuItem} from "../data/MenuItem";
+import {Order} from "../data/Order";
 
 
 @Component({
@@ -9,7 +12,24 @@ import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner/ngx';
 })
 export class HomePage {
 
-    constructor(private qrScanner: QRScanner) {
+    items: MenuItem[] = [
+        {name: 'Freistaedter', price: 3.8, amount: 0.33},
+        {name: 'Stiegl', price: 0.1, amount: 0.5}
+    ];
+
+    orders: Order[] = [
+        {id: 1, items: this.items},
+        {id: 2, items: this.items},
+        {id: 3, items: this.items},
+        {id: 4, items: this.items},
+        {id: 5, items: this.items},
+        {id: 6, items: this.items},
+        {id: 7, items: this.items},
+        {id: 8, items: this.items},
+        {id: 9, items: this.items}
+    ];
+
+    constructor(private qrScanner: QRScanner, private router: Router) {
     }
 
     onScanClick() {
@@ -28,6 +48,8 @@ export class HomePage {
                         ionApp.style.display = "block";
                         this.qrScanner.hide(); // hide camera preview
                         scanSub.unsubscribe(); // stop scanning
+
+                        //read data and write into list
                     });
 
                 } else if (status.denied) {
@@ -40,5 +62,9 @@ export class HomePage {
                 }
             })
             .catch((e: any) => console.log('Error is', e));
+    }
+
+    onOrderClick(order: Order) {
+        this.router.navigate(['/order/'+order.id])
     }
 }
