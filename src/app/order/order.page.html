@@ -1,55 +1,54 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      QRder Waiter
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="done">Completed order</ion-title>
+    <ion-title *ngIf="!done">New order</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
-
-<ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-buttons slot="secondary">
-        <ion-back-button defaultHref="/home"></ion-back-button>
-      </ion-buttons>
-      <ion-title>Your order</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content fullscreen class="ion-padding">
   <ion-list >
     <ion-item>
-      <ion-note slot="start">2</ion-note>
+      <ion-text slot="start">2</ion-text>
       <ion-label >Red Bull <ion-text color="medium">(€3,50)</ion-text></ion-label>
       <span>€7,00</span>
     </ion-item>
     <ion-item>
-      <ion-note slot="start">6</ion-note>
+      <ion-text slot="start">6</ion-text>
       <ion-label >Freistädter <ion-text color="medium">(€3,80)</ion-text></ion-label>
       <span>€22,80</span>
     </ion-item>
     <ion-item>
-      <ion-note slot="start">1</ion-note>
+      <ion-text slot="start">1</ion-text>
       <ion-label >Wieselburger <ion-text color="medium">(€3,90)</ion-text></ion-label>
       <span>€3,90</span>
     </ion-item>
     <ion-item>
-      <ion-note slot="start">4</ion-note>
+      <ion-text slot="start">4</ion-text>
       <ion-label >Welschriesling <ion-text color="medium">(€2,50)</ion-text></ion-label>
       <span>€10,00</span>
     </ion-item>
     <ion-item lines="full">
-      <ion-note slot="start">2</ion-note>
+      <ion-text slot="start">2</ion-text>
       <ion-label >Sauvignon Blanc <ion-text color="medium">(€2,70)</ion-text></ion-label>
       <span>€5,40</span>
     </ion-item>
 
     <ion-item lines="full">
-      <ion-note slot="start"><b>15</b></ion-note>
+      <ion-text slot="start"><b>15</b></ion-text>
       <ion-label><b>Total</b></ion-label>
       <b>€41,60</b>
     </ion-item>
   </ion-list>
 
-</ion-content>
+  <ion-fab slot="fixed" horizontal="center" vertical="bottom">
+    <ion-fab-button style="margin-left: -90px" (click)="changeOrderStatus(true)"><ion-icon name="checkmark-outline"></ion-icon></ion-fab-button>
+  </ion-fab>
 
+  <ion-fab slot="fixed" horizontal="center" vertical="bottom">
+    <ion-fab-button style="--background: red; margin-left: 50px" (click)="changeOrderStatus(false)"><ion-icon name="close-outline"></ion-icon></ion-fab-button>
+  </ion-fab>
+
+</ion-content>
