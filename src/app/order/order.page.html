@@ -3,8 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="done">Completed order</ion-title>
-    <ion-title *ngIf="!done">New order</ion-title>
+    <ion-title>{{this.orderStatus}} Order</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -44,11 +43,11 @@
   </ion-list>
 
   <ion-fab slot="fixed" horizontal="center" vertical="bottom">
-    <ion-fab-button style="margin-left: -90px" (click)="changeOrderStatus(true)"><ion-icon name="checkmark-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button style="margin-left: -90px" (click)="changeOrderStatus()"><ion-icon name="checkmark-outline"></ion-icon></ion-fab-button>
   </ion-fab>
 
   <ion-fab slot="fixed" horizontal="center" vertical="bottom">
-    <ion-fab-button style="--background: red; margin-left: 50px" (click)="changeOrderStatus(false)"><ion-icon name="close-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button style="--background: red; margin-left: 50px" (click)="changeOrderStatus()"><ion-icon name="close-outline"></ion-icon></ion-fab-button>
   </ion-fab>
 
 </ion-content>
