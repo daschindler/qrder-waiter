@@ -18,16 +18,23 @@ export class OrderPage implements OnInit {
   ngOnInit() {
     this.orderId = this.activatedRoute.snapshot.paramMap.get('orderid');
     this.order = this.appComponent.orders.find(x => x.id === Number(this.orderId));
-    this.orderStatus = this.order.done ? 'Finished' : 'New';
+    this.changeDisplayOrderStatus();
   }
 
   changeOrderStatus() {
-    console.log(this.order);
     if (this.order != null) {
       this.order.done = !this.order.done;
+      this.changeDisplayOrderStatus();
       this.appComponent.orders.find(x => x.id == this.orderId).done = this.order.done;
       this.appComponent.sortOrdersByDateAndFinished();
     }
+  }
+
+  changeDisplayOrderStatus(){
+    this.orderStatus = this.order.done ? 'Finished' : 'New';
+  }
+
+  closeOrder() {
     this.router.navigate(['/home']);
   }
 

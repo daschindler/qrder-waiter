@@ -42,12 +42,16 @@
     </ion-item>
   </ion-list>
 
-  <ion-fab slot="fixed" horizontal="center" vertical="bottom">
+  <ion-fab *ngIf="!this.order.done" slot="fixed" horizontal="center" vertical="bottom">
     <ion-fab-button style="margin-left: -90px" (click)="changeOrderStatus()"><ion-icon name="checkmark-outline"></ion-icon></ion-fab-button>
   </ion-fab>
 
+  <ion-fab *ngIf="this.order.done" slot="fixed" horizontal="center" vertical="bottom">
+    <ion-fab-button style="margin-left: -90px" (click)="changeOrderStatus()"><ion-icon name="refresh-outline"></ion-icon></ion-fab-button>
+  </ion-fab>
+
   <ion-fab slot="fixed" horizontal="center" vertical="bottom">
-    <ion-fab-button style="--background: red; margin-left: 50px" (click)="changeOrderStatus()"><ion-icon name="close-outline"></ion-icon></ion-fab-button>
+    <ion-fab-button style="--background: red; margin-left: 50px" (click)="closeOrder()"><ion-icon name="arrow-back-outline"></ion-icon></ion-fab-button>
   </ion-fab>
 
 </ion-content>
