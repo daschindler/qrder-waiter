@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { MenuItem } from './data/MenuItem';
+import { OrderItem } from './data/OrderItem';
 import { Order } from './data/Order';
+import { MenuCategory } from './data/MenuCategory';
+import {HttpClient} from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,26 +11,38 @@ import { Order } from './data/Order';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  items: MenuItem[] = [
-    {name: 'Freistaedter', price: 3.8, amount: 0.33},
-    {name: 'Stiegl', price: 0.1, amount: 0.5}
-  ];
+  categories: MenuCategory[] = []
+  items: OrderItem[] = []
 
-  orders: Order[] = [
-    new Order(1, this.items, false),
-    new Order(2, this.items, false),
-    new Order(3, this.items, false),
-    new Order(4, this.items, false),
-    new Order(5, this.items, false),
-    new Order(6, this.items, true),
-    new Order(7, this.items, false),
-    new Order(8, this.items, true),
-    new Order(9, this.items, true),
-    new Order(10, this.items, true),
-  ];
+  orders: Order[] = [];
 
 
-  constructor() {}
+  constructor(public http: HttpClient) {
+    this.loadItemsFromJson();
+  }
+
+  loadItemsFromJson() {
+    this.readJsonData().subscribe(categories => {
+      this.categories = categories;
+      this.items = this.categories.reduce((x, y) => x.concat(y.items), []);
+      this.orders = [
+          new Order(1, this.items, false),
+          new Order(2, this.items, false),
+          new Order(3, this.items, false),
+          new Order(4, this.items, false),
+          new Order(5, this.items, false),
+          new Order(6, this.items, true),
+          new Order(7, this.items, false),
+          new Order(8, this.items, true),
+          new Order(9, this.items, true),
+          new Order(10, this.items, true)
+      ];
+    });
+  }
+
+  public readJsonData(): Observable<MenuCategory[]> {
+    return this.http.get<MenuCategory[]>('assets/data/items.json');
+  }
 
   sortOrdersByDateAndFinished() {
     //sort by time
@@ -42,3 +57,4 @@ export class AppComponent {
     });
   }
 }
+

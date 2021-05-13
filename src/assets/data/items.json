@@ -1,0 +1,170 @@
+[
+  {
+    "name": "Beer",
+    "imagePath": "beer-outline",
+    "items": [
+      {
+        "id": 1,
+        "name": "Freistädter",
+        "price": 3.8,
+        "amount": 0.33,
+        "amountInCart": 0
+      },
+      {
+        "id": 2,
+        "name": "Stiegl",
+        "price": 0.1,
+        "amount": 0.5,
+        "amountInCart": 0
+      },
+      {
+        "id": 3,
+        "name": "Zipfer",
+        "price": 3.5,
+        "amount": 0.5,
+        "amountInCart": 0
+      },
+      {
+        "id": 4,
+        "name": "Wieselburger",
+        "price": 3.6,
+        "amount": 0.5,
+        "amountInCart": 0
+      }
+    ],
+    "visible": false
+  },
+  {
+    "name": "Wine",
+    "imagePath": "wine-outline",
+    "items": [
+      {
+        "id": 20,
+        "name": "Deep Purple",
+        "price": 11,
+        "amount": 0.75,
+        "amountInCart": 0
+      },
+      {
+        "id": 21,
+        "name": "Blaufränkisch",
+        "price": 11,
+        "amount": 0.75,
+        "amountInCart": 0
+      },
+      {
+        "id": 22,
+        "name": "Dreigelt",
+        "price": 11,
+        "amount": 0.75,
+        "amountInCart": 0
+      },
+      {
+        "id": 23,
+        "name": "Gruener Veltliner langer Weinname",
+        "price": 6,
+        "amount": 0.75,
+        "amountInCart": 0
+      },
+      {
+        "id": 24,
+        "name": "Chardonnay",
+        "price": 8,
+        "amount": 0.75,
+        "amountInCart": 0
+      },
+      {
+        "id": 25,
+        "name": "Sauf-mi-au Blànc",
+        "price": 7,
+        "amount": 0.75,
+        "amountInCart": 0
+      }
+    ],
+    "visible": false
+  },
+  {
+    "name": "Around the world",
+    "imagePath": "earth-outline",
+    "items": [
+      {
+        "id": 10,
+        "name": "Johnny Walker Black Label",
+        "price": 7,
+        "amount": 0.4,
+        "amountInCart": 0
+      },
+      {
+        "id": 11,
+        "name": "Makers Mark",
+        "price": 8,
+        "amount": 0.4,
+        "amountInCart": 0
+      },
+      {
+        "id": 12,
+        "name": "Lagavulin 16y",
+        "price": 12,
+        "amount": 0.4,
+        "amountInCart": 0
+      },
+      {
+        "id": 13,
+        "name": "Oban 14y",
+        "price": 10,
+        "amount": 0.4,
+        "amountInCart": 0
+      },
+      {
+        "id": 14,
+        "name": "Laphroaig 4 seasons",
+        "price": 9,
+        "amount": 0.4,
+        "amountInCart": 0
+      }
+    ],
+    "visible": false
+  },
+  {
+    "name": "Non-alcoholic",
+    "imagePath": "car-sport-outline",
+    "items": [
+      {
+        "id": 30,
+        "name": "Coca Cola",
+        "price": 4,
+        "amount": 0.33,
+        "amountInCart": 0
+      },
+      {
+        "id": 31,
+        "name": "Water",
+        "price": 2,
+        "amount": 0.5,
+        "amountInCart": 0
+      },
+      {
+        "id": 32,
+        "name": "Orange Juice",
+        "price": 3,
+        "amount": 0.33,
+        "amountInCart": 0
+      },
+      {
+        "id": 33,
+        "name": "Red Bull",
+        "price": 4,
+        "amount": 0.33,
+        "amountInCart": 0
+      },
+      {
+        "id": 34,
+        "name": "Arizona",
+        "price": 4,
+        "amount": 0.5,
+        "amountInCart": 0
+      }
+    ],
+    "visible": false
+  }
+]

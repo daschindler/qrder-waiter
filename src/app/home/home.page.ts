@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner/ngx';
 import {Router} from "@angular/router";
-import {MenuItem} from "../data/MenuItem";
+import {OrderItem} from "../data/OrderItem";
 import {Order} from "../data/Order";
 import { AppComponent } from '../app.component';
 
@@ -13,7 +13,7 @@ import { AppComponent } from '../app.component';
 })
 export class HomePage {
 
-    constructor(private qrScanner: QRScanner, private router: Router, public appComponent: AppComponent) {
+    constructor(private qrScanner: QRScanner, private router: Router, public app: AppComponent) {
     }
 
     onScanClick() {
@@ -29,12 +29,37 @@ export class HomePage {
 
                     // start scanning
                     let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+                        let versionNr = text.charCodeAt(0);
+                        let items = []
+
+                        if (versionNr === 1) {
+                            let index = 1;
+                            while (index < text.length) {
+                                let code = text.charCodeAt(index).toString(16);
+                                code = code.padStart(4, "0");
+
+                                let amount = code.substr(0, 1);
+                                let amountInt = parseInt(amount, 16) + 1;
+
+                                let id = code.substr(1, 3);
+                                let idInt = parseInt(id, 16);
+
+                                items.push(this.findBelongingOrderItem(idInt, amountInt));
+
+                                index++;
+                            }
+
+                            let order = new Order(11, items, false);
+                            this.app.orders.push(order);
+
+                        }
+
                         console.log('Scanned something', text);
                         ionApp.style.display = "block";
                         this.qrScanner.hide();
                         scanSub.unsubscribe(); // stop scanning
 
-                        this.onOrderClick(this.appComponent.orders[0]);
+                        this.onOrderClick(this.app.orders[10]);
                         //read data and write into list
                     });
 
@@ -50,13 +75,24 @@ export class HomePage {
             .catch((e: any) => console.log('Error is', e));
     }
 
+    findBelongingOrderItem(idInt: number, amountInt: number): OrderItem {
+        console.log("id" + idInt);
+        console.log("amount" + amountInt);
+        let item = this.app.items.find(x => x.id === idInt);
+        console.log(item);
+        item.amountInCart = amountInt;
+        return item;
+    }
+
     onOrderClick(order: Order) {
         this.router.navigate(['/order/'+order.id])
     }
 
     ngOnInit() {
-        this.appComponent.sortOrdersByDateAndFinished();
+        this.app.sortOrdersByDateAndFinished();
     }
 }
+
+
 
 

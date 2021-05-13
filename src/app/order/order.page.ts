@@ -13,11 +13,11 @@ export class OrderPage implements OnInit {
   order = null;
   orderStatus = '';
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, public appComponent: AppComponent) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, public app: AppComponent) { }
 
   ngOnInit() {
     this.orderId = this.activatedRoute.snapshot.paramMap.get('orderid');
-    this.order = this.appComponent.orders.find(x => x.id === Number(this.orderId));
+    this.order = this.app.orders.find(x => x.id === Number(this.orderId));
     this.changeDisplayOrderStatus();
   }
 
@@ -25,8 +25,8 @@ export class OrderPage implements OnInit {
     if (this.order != null) {
       this.order.done = !this.order.done;
       this.changeDisplayOrderStatus();
-      this.appComponent.orders.find(x => x.id == this.orderId).done = this.order.done;
-      this.appComponent.sortOrdersByDateAndFinished();
+      this.app.orders.find(x => x.id == this.orderId).done = this.order.done;
+      this.app.sortOrdersByDateAndFinished();
     }
   }
 

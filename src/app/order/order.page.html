@@ -3,44 +3,28 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{this.orderStatus}} Order Nr. {{this.orderId}}</ion-title>
+    <ion-title>{{this.orderStatus}} Order</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen class="ion-padding">
-  <ion-list >
-    <ion-item>
-      <ion-text slot="start">2</ion-text>
-      <ion-label >Red Bull <ion-text color="medium">(€3,50)</ion-text></ion-label>
-      <span>€7,00</span>
-    </ion-item>
-    <ion-item>
-      <ion-text slot="start">6</ion-text>
-      <ion-label >Freistädter <ion-text color="medium">(€3,80)</ion-text></ion-label>
-      <span>€22,80</span>
-    </ion-item>
-    <ion-item>
-      <ion-text slot="start">1</ion-text>
-      <ion-label >Wieselburger <ion-text color="medium">(€3,90)</ion-text></ion-label>
-      <span>€3,90</span>
-    </ion-item>
-    <ion-item>
-      <ion-text slot="start">4</ion-text>
-      <ion-label >Welschriesling <ion-text color="medium">(€2,50)</ion-text></ion-label>
-      <span>€10,00</span>
-    </ion-item>
-    <ion-item lines="full">
-      <ion-text slot="start">2</ion-text>
-      <ion-label >Sauvignon Blanc <ion-text color="medium">(€2,70)</ion-text></ion-label>
-      <span>€5,40</span>
-    </ion-item>
+  <!-- List Header Full Lines -->
+  <ion-list-header lines="full">
+    <ion-label>Nr. {{this.orderId}}</ion-label>
+  </ion-list-header>
 
-    <ion-item lines="full">
-      <ion-text slot="start"><b>15</b></ion-text>
-      <ion-label><b>Total</b></ion-label>
-      <b>€41,60</b>
+  <ion-list *ngFor="let item of this.order.items; let first=first">
+    <ion-item >
+      <ion-text slot="start">{{item.amountInCart}}</ion-text>
+      <ion-label class="ion-text-wrap">{{item.name}} <ion-text color="medium">({{item.amount}}l)</ion-text></ion-label>
+      <span>€{{item.price}}</span>
     </ion-item>
   </ion-list>
+  <ion-item lines="full">
+    <ion-text slot="start"><b>{{this.order.totalAmountOfOrder()}}</b></ion-text>
+    <ion-label><b>Total</b></ion-label>
+    <b>€{{this.order.totalPrice() | number : '1.2-2'}}</b>
+  </ion-item>
 
   <ion-fab *ngIf="!this.order.done" slot="fixed" horizontal="center" vertical="bottom">
     <ion-fab-button style="margin-left: -90px" (click)="changeOrderStatus()"><ion-icon name="checkmark-outline"></ion-icon></ion-fab-button>

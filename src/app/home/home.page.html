@@ -14,7 +14,7 @@
   </ion-header>
 
   <div id="container-order-list">
-        <ion-list *ngFor="let order of this.appComponent.orders">
+        <ion-list *ngFor="let order of this.app.orders">
           <ion-item (click)="onOrderClick(order)">
             <ion-col *ngIf="order.done" size="1">
               <ion-icon style="color: green" name="checkmark-outline"></ion-icon>
