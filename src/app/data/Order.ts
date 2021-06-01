@@ -6,17 +6,23 @@ export class Order {
     date: Date;
     done: boolean;
 
-    constructor(id: number, items: OrderItem[], done:boolean) {
-        this.id = id;
-        this.items = items;
-        this.date = new Date();
-        this.done = done;
+    constructor(id: number, items: OrderItem[], date: Date, done:boolean) {
+        this.id = id
+        this.items = items
+        if (date === null) {
+            console.log("date is null")
+            this.date = new Date()
+            console.log("date is: " + this.date)
+        } else {
+            this.date = date
+        }
+        this.done = done
     }
 
     public totalPrice(): number {
-        var totalPrice = 0;
+        let totalPrice = 0;
         this.items.forEach(x => {
-           totalPrice = totalPrice + (x.price * x.amount);
+            totalPrice = totalPrice + (x.price * x.amountInCart);
         });
         return totalPrice;
     }
@@ -24,5 +30,4 @@ export class Order {
     public totalAmountOfOrder(): number {
         return this.items.reduce((partialSum, item) => partialSum + item.amountInCart, 0);
     }
-
 }

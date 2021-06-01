@@ -18,25 +18,14 @@ export class AppComponent {
 
 
   constructor(public http: HttpClient) {
-    this.loadItemsFromJson();
+    this.loadItemsFromJson()
   }
 
   loadItemsFromJson() {
     this.readJsonData().subscribe(categories => {
       this.categories = categories;
       this.items = this.categories.reduce((x, y) => x.concat(y.items), []);
-      this.orders = [
-          new Order(1, this.items, false),
-          new Order(2, this.items, false),
-          new Order(3, this.items, false),
-          new Order(4, this.items, false),
-          new Order(5, this.items, false),
-          new Order(6, this.items, true),
-          new Order(7, this.items, false),
-          new Order(8, this.items, true),
-          new Order(9, this.items, true),
-          new Order(10, this.items, true)
-      ];
+      this.loadOldOrders()
     });
   }
 
@@ -55,6 +44,18 @@ export class AppComponent {
     this.orders.sort(function(x, y) {
       return Number(x.done) - Number(y.done);
     });
+  }
+
+  private loadOldOrders() {
+    let storedOrders = localStorage.getItem('orders')
+    let stores = JSON.parse(storedOrders)
+
+    stores.forEach(x => {
+      let date = new Date(x.date)
+      this.orders.push(new Order(x.id, x.items, date, x.done))
+    })
+
+    console.log(this.orders)
   }
 }
 

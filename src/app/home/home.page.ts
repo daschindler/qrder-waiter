@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {OrderItem} from "../data/OrderItem";
 import {Order} from "../data/Order";
 import { AppComponent } from '../app.component';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { AppComponent } from '../app.component';
 })
 export class HomePage {
 
-    constructor(private qrScanner: QRScanner, private router: Router, public app: AppComponent) {
+    constructor(private qrScanner: QRScanner, private router: Router, public app: AppComponent, public datepipe: DatePipe) {
     }
 
     onScanClick() {
@@ -24,9 +25,7 @@ export class HomePage {
                     const ionApp = <HTMLElement>document.getElementsByTagName("ion-app")[0];
                     ionApp.style.display = "none";
                     this.qrScanner.show();
-
-
-
+                    
                     // start scanning
                     let scanSub = this.qrScanner.scan().subscribe((text: string) => {
                         let versionNr = text.charCodeAt(0);
@@ -49,9 +48,10 @@ export class HomePage {
                                 index++;
                             }
 
-                            let order = new Order(11, items, false);
-                            this.app.orders.push(order);
 
+                            let order = new Order(this.app.orders.length+1, items, null, false);
+                            this.app.orders.push(order);
+                            localStorage.setItem('orders', JSON.stringify(this.app.orders))
                         }
 
                         console.log('Scanned something', text);
@@ -59,7 +59,7 @@ export class HomePage {
                         this.qrScanner.hide();
                         scanSub.unsubscribe(); // stop scanning
 
-                        this.onOrderClick(this.app.orders[10]);
+                        this.onOrderClick(this.app.orders[this.app.orders.length-1]);
                         //read data and write into list
                     });
 
@@ -76,10 +76,7 @@ export class HomePage {
     }
 
     findBelongingOrderItem(idInt: number, amountInt: number): OrderItem {
-        console.log("id" + idInt);
-        console.log("amount" + amountInt);
         let item = this.app.items.find(x => x.id === idInt);
-        console.log(item);
         item.amountInCart = amountInt;
         return item;
     }
@@ -90,6 +87,10 @@ export class HomePage {
 
     ngOnInit() {
         this.app.sortOrdersByDateAndFinished();
+    }
+
+    getFormattedDate(order: Order) {
+        return this.datepipe.transform(order.date, 'HH:mm')
     }
 }
 
